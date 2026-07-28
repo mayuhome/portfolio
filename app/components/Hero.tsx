@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTypewriter } from "react-simple-typewriter";
 import { GitFork, Link2, Mail, Download, ChevronDown } from "lucide-react";
@@ -23,11 +24,11 @@ export default function Hero() {
       id="Home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Animated blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-72 h-72 bg-[#9670df]/20 dark:bg-[#b28ff1]/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] animate-blob" />
-        <div className="absolute top-0 -right-4 w-72 h-72 bg-blue-400/20 dark:bg-blue-600/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] animate-blob animation-delay-2000" />
-        <div className="absolute -bottom-32 left-20 w-72 h-72 bg-emerald-400/20 dark:bg-emerald-500/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] animate-blob animation-delay-4000" />
+      {/* Animated blobs - GPU accelerated */}
+      <div className="absolute inset-0 overflow-hidden" style={{ contain: 'layout style paint' }}>
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#9670df]/15 dark:bg-[#b28ff1]/8 rounded-full filter blur-[150px] animate-blob" style={{ willChange: 'transform', transform: 'translateZ(0)' }} />
+        <div className="absolute top-0 -right-20 w-96 h-96 bg-blue-400/15 dark:bg-blue-600/8 rounded-full filter blur-[150px] animate-blob animation-delay-2000" style={{ willChange: 'transform', transform: 'translateZ(0)' }} />
+        <div className="absolute -bottom-32 left-20 w-96 h-96 bg-emerald-400/15 dark:bg-emerald-500/8 rounded-full filter blur-[150px] animate-blob animation-delay-4000" style={{ willChange: 'transform', transform: 'translateZ(0)' }} />
       </div>
 
       {/* Grid pattern overlay */}
@@ -141,14 +142,29 @@ export default function Hero() {
 }
 
 function FloatingParticles() {
-  const particles = Array.from({ length: 15 }, (_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    size: Math.random() * 8 + 4,
-    duration: Math.random() * 15 + 10,
-    delay: Math.random() * 10,
-    shape: i % 3 === 0 ? "circle" : i % 3 === 1 ? "square" : "code",
-  }));
+  const [particles, setParticles] = useState<Array<{
+    id: number;
+    left: string;
+    size: number;
+    duration: number;
+    delay: number;
+    shape: string;
+  }>>([]);
+
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 15 }, (_, i) => ({
+        id: i,
+        left: `${(i * 7.3 + 10) % 100}%`,
+        size: (i * 1.7 + 4) % 10 + 4,
+        duration: (i * 2.3 + 12) % 15 + 10,
+        delay: (i * 1.5) % 10,
+        shape: i % 3 === 0 ? "circle" : i % 3 === 1 ? "square" : "code",
+      }))
+    );
+  }, []);
+
+  if (particles.length === 0) return null;
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
