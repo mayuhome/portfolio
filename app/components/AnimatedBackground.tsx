@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 
 export default function AnimatedBackground() {
   const [particles, setParticles] = useState<Array<{
@@ -13,16 +13,18 @@ export default function AnimatedBackground() {
   }>>([]);
 
   useEffect(() => {
-    setParticles(
-      Array.from({ length: 25 }, (_, i) => ({
+    const shape = Array.from({ length: 25 }, (_, i) => ({
         id: i,
         left: `${(i * 4.3 + 5) % 100}%`,
-        size: (i * 2.1 + 6) % 14 + 8,
+        size: (i * 20 + 6) % 19 + 18,
         duration: (i * 3.1 + 15) % 20 + 15,
         delay: (i * 1.7) % 12,
         shape: i % 3 === 0 ? "circle" : i % 3 === 1 ? "square" : "code",
-      }))
-    );
+      }));
+    
+    startTransition(() => {
+      setParticles(shape);
+    });
   }, []);
 
   return (
@@ -63,17 +65,17 @@ export default function AnimatedBackground() {
             >
               {p.shape === "circle" ? (
                 <div
-                  className="rounded-full bg-[#b28ff1]"
+                  className="rounded-full bg-transparent border border-accent"
                   style={{ width: p.size, height: p.size }}
                 />
               ) : p.shape === "square" ? (
                 <div
-                  className="rounded-sm bg-blue-400"
+                  className="rounded-sm bg-transparent border border-blue-400 dark:border-blue-500"
                   style={{ width: p.size, height: p.size }}
                 />
               ) : (
                 <span
-                  className="text-emerald-400 font-mono font-bold"
+                  className="text-emerald-200 font-mono dark:text-emerald-300 font-thin"
                   style={{ fontSize: p.size }}
                 >
                   {"</>"}

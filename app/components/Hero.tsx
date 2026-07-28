@@ -44,7 +44,7 @@ export default function Hero() {
           className="text-5xl sm:text-7xl font-extrabold tracking-tight mb-6"
         >
           <span className="bg-gradient-to-r from-accent-dark to-accent bg-clip-text text-transparent">
-            Maja
+            Jade
           </span>
         </motion.h1>
 

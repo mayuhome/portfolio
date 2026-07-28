@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, startTransition } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home,
@@ -30,19 +30,28 @@ const navItemKeys = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
   const { lang, toggleLang, t } = useLang();
 
+  const getInitialTheme = (): boolean => {
+  if (typeof window === 'undefined') return false; // SSR安全
+  
+  const stored = localStorage.getItem("theme");
+  if (stored === 'dark') return true;
+  if (stored === 'light') return false;
+  
+  // 没有存储的值，使用系统偏好
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+};
+
+  const [darkMode, setDarkMode] = useState(getInitialTheme());
+
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored) {
-      setDarkMode(stored === "dark");
-    } else {
-      setDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
-    }
-    setMounted(true);
+    startTransition(() => {
+      setMounted(true);
+    });
   }, []);
 
   useEffect(() => {

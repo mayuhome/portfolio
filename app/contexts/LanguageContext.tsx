@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, startTransition } from "react";
 
 type Lang = "en" | "zh";
 
@@ -77,7 +77,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "contact.work": "Let's work together",
     "contact.work.desc": "Whether you have a question or just want to say hi, I'll try my best to get back to you!",
     "contact.location": "Location",
-    "contact.footer": "Maja | All rights reserved",
+    "contact.footer": "Jade | All rights reserved",
   },
   zh: {
     // Navbar
@@ -145,7 +145,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "contact.work": "一起合作吧",
     "contact.work.desc": "无论您有问题还是只想打个招呼，我都会尽力回复您！",
     "contact.location": "所在地",
-    "contact.footer": "Maja | 版权所有",
+    "contact.footer": "Jade | 版权所有",
   },
 };
 
@@ -156,11 +156,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("lang") as Lang;
-    if (stored === "en" || stored === "zh") {
-      setLang(stored);
-    }
-    setMounted(true);
+    startTransition(() => {
+      const stored = localStorage.getItem("lang") as Lang;
+      if (stored === "en" || stored === "zh") {
+        setLang(stored);
+      }
+      setMounted(true);
+    });
   }, []);
 
   const toggleLang = () => {
