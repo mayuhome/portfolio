@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home,
@@ -32,6 +32,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [activeSection, setActiveSection] = useState("Home");
   const { lang, toggleLang, t } = useLang();
 
   useEffect(() => {
@@ -50,6 +51,36 @@ export default function Navbar() {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode, mounted]);
 
+  // IntersectionObserver for active section tracking
+  useEffect(() => {
+    const sectionIds = navItemKeys.map((item) => item.href.slice(1));
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          });
+        },
+        {
+          rootMargin: "-40% 0px -55% 0px",
+          threshold: 0,
+        }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, [mounted]);
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -63,39 +94,59 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="w-full pt-4 fixed top-0 md:flex flex-col items-center hidden z-30"
       >
-        <div className="flex rounded-full px-8 py-3 items-center justify-center gap-10 text-lg font-light text-foreground bg-card/60 backdrop-blur-xl border border-card-border shadow-lg">
-          {navItemKeys.map((item) => (
-            <a
-              key={item.key}
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo(item.href.slice(1));
-              }}
-              className="flex items-center gap-2 cursor-pointer hover:text-accent transition-all"
-            >
-              <item.icon size={16} />
-              {t(item.key)}
-            </a>
-          ))}
+        <div className="relative flex rounded-full px-4 py-2 items-center justify-center gap-1 text-base font-light text-foreground bg-card/60 backdrop-blur-xl border border-card-border shadow-lg">
+          {navItemKeys.map((item) => {
+            const isActive = activeSection === item.href.slice(1);
+            return (
+              <a
+                key={item.key}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo(item.href.slice(1));
+                }}
+                className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-full cursor-pointer transition-colors duration-300 z-10 ${
+                  isActive
+                    ? "text-accent font-medium"
+                    : "text-muted hover:text-foreground"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-active-pill"
+                    className="absolute inset-0 rounded-full bg-accent/10 border border-accent/30"
+                    transition={{
+                      type: "spring",
+                      stiffness: 380,
+                      damping: 30,
+                    }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-1.5">
+                  <item.icon size={15} />
+                  {t(item.key)}
+                </span>
+              </a>
+            );
+          })}
 
-          <div className="w-[1px] h-6 bg-card-border" />
+          <div className="w-px h-6 bg-card-border mx-2" />
 
           <button
             onClick={toggleLang}
-            className="flex items-center gap-1 px-2 py-1.5 rounded-full hover:bg-card transition-colors text-sm"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-full hover:bg-card transition-colors text-sm text-muted"
             aria-label="Toggle language"
           >
-            <Globe size={16} />
+            <Globe size={15} />
             {lang === "en" ? "中文" : "EN"}
           </button>
 
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-full hover:bg-card transition-colors"
+            className="p-2 rounded-full hover:bg-card transition-colors text-muted"
             aria-label="Toggle theme"
           >
-            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            {darkMode ? <Sun size={17} /> : <Moon size={17} />}
           </button>
         </div>
       </motion.nav>
@@ -121,7 +172,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleLang}
-            className="flex items-center gap-1 px-2 py-1.5 rounded-full hover:bg-card transition-colors text-sm"
+            className="flex items-center gap-1 px-2 py-1.5 rounded-full hover:bg-card transition-colors text-sm text-muted"
             aria-label="Toggle language"
           >
             <Globe size={14} />
@@ -129,14 +180,14 @@ export default function Navbar() {
           </button>
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-full hover:bg-card transition-colors"
+            className="p-2 rounded-full hover:bg-card transition-colors text-muted"
             aria-label="Toggle theme"
           >
             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 rounded-full hover:bg-card transition-colors"
+            className="p-2 rounded-full hover:bg-card transition-colors text-muted"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -161,22 +212,32 @@ export default function Navbar() {
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="fixed top-0 w-[250px] h-screen bg-background z-50 border-l border-card-border right-0"
             >
-              <div className="flex flex-col items-start gap-8 pt-24 px-8 text-xl text-foreground">
-                {navItemKeys.map((item) => (
-                  <a
-                    key={item.key}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setMobileOpen(false);
-                      scrollTo(item.href.slice(1));
-                    }}
-                    className="flex items-center gap-4 cursor-pointer hover:text-accent"
-                  >
-                    <item.icon size={20} />
-                    {t(item.key)}
-                  </a>
-                ))}
+              <div className="flex flex-col items-start gap-6 pt-24 px-8 text-xl">
+                {navItemKeys.map((item) => {
+                  const isActive = activeSection === item.href.slice(1);
+                  return (
+                    <a
+                      key={item.key}
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setMobileOpen(false);
+                        scrollTo(item.href.slice(1));
+                      }}
+                      className={`flex items-center gap-4 cursor-pointer transition-colors duration-200 ${
+                        isActive
+                          ? "text-accent font-medium"
+                          : "text-muted hover:text-foreground"
+                      }`}
+                    >
+                      <item.icon size={20} />
+                      {t(item.key)}
+                      {isActive && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent ml-auto" />
+                      )}
+                    </a>
+                  );
+                })}
               </div>
             </motion.div>
           </>
