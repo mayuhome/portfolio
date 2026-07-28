@@ -3,10 +3,12 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Send, GitFork, Link2, Mail, MapPin, Phone } from "lucide-react";
+import { useLang } from "../contexts/LanguageContext";
 
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,7 +17,6 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log(formData);
   };
 
@@ -31,15 +32,14 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-extrabold tracking-tight mb-2">
-            Get In{" "}
+            {t("contact.title").split(" ").slice(0, -1).join(" ")}{" "}
             <span className="bg-gradient-to-r from-[#9670df] to-[#b28ff1] bg-clip-text text-transparent">
-              Touch
+              {t("contact.title").split(" ").slice(-1)}
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#9670df] to-[#b28ff1] mx-auto rounded-full mb-4" />
           <p className="text-slate-600 dark:text-slate-400 font-light max-w-lg mx-auto">
-            I&apos;m always open to discussing new projects, creative ideas, or
-            opportunities to be part of your vision.
+            {t("contact.desc")}
           </p>
         </motion.div>
 
@@ -55,7 +55,7 @@ export default function Contact() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Your Name
+                  {t("contact.name")}
                 </label>
                 <input
                   type="text"
@@ -64,12 +64,12 @@ export default function Contact() {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:border-[#9670df] dark:focus:border-[#b28ff1] focus:outline-none focus:ring-2 focus:ring-[#9670df]/20 transition-all duration-300"
-                  placeholder="John Doe"
+                  placeholder={t("contact.name.placeholder")}
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Your Email
+                  {t("contact.email")}
                 </label>
                 <input
                   type="email"
@@ -78,13 +78,13 @@ export default function Contact() {
                     setFormData({ ...formData, email: e.target.value })
                   }
                   className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:border-[#9670df] dark:focus:border-[#b28ff1] focus:outline-none focus:ring-2 focus:ring-[#9670df]/20 transition-all duration-300"
-                  placeholder="john@example.com"
+                  placeholder={t("contact.email.placeholder")}
                 />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">
-                Your Message
+                {t("contact.message")}
               </label>
               <textarea
                 value={formData.message}
@@ -93,7 +93,7 @@ export default function Contact() {
                 }
                 rows={5}
                 className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:border-[#9670df] dark:focus:border-[#b28ff1] focus:outline-none focus:ring-2 focus:ring-[#9670df]/20 transition-all duration-300 resize-none"
-                placeholder="Tell me about your project..."
+                placeholder={t("contact.message.placeholder")}
               />
             </div>
             <button
@@ -101,7 +101,7 @@ export default function Contact() {
               className="flex items-center gap-2 px-8 py-3 bg-[#9670df] hover:bg-[#8563c9] dark:bg-[#5a4392] dark:hover:bg-[#b28ff1] text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-[#9670df]/30 transform hover:-translate-y-1"
             >
               <Send size={18} />
-              Send Message
+              {t("contact.send")}
             </button>
           </motion.form>
 
@@ -113,12 +113,9 @@ export default function Contact() {
             className="space-y-8"
           >
             <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
-              <h3 className="text-xl font-bold mb-4">
-                Let&apos;s work together
-              </h3>
+              <h3 className="text-xl font-bold mb-4">{t("contact.work")}</h3>
               <p className="text-slate-600 dark:text-slate-400 font-light mb-6">
-                Whether you have a question or just want to say hi, I&apos;ll try
-                my best to get back to you!
+                {t("contact.work.desc")}
               </p>
 
               <div className="space-y-4">
@@ -150,7 +147,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                      Location
+                      {t("contact.location")}
                     </p>
                     <p className="font-medium">San Francisco, CA</p>
                   </div>
@@ -198,7 +195,7 @@ export default function Contact() {
         className="mt-20 pt-8 border-t border-slate-200 dark:border-slate-800 text-center"
       >
         <p className="text-sm text-slate-500 dark:text-slate-400 font-light">
-          Maja | All rights reserved &copy; {new Date().getFullYear()}
+          {t("contact.footer")} &copy; {new Date().getFullYear()}
         </p>
       </motion.footer>
     </section>

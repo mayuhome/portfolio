@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Briefcase, Calendar } from "lucide-react";
+import { useLang } from "../contexts/LanguageContext";
 
 interface ExperienceItem {
   role: string;
@@ -51,6 +52,7 @@ const experiences: ExperienceItem[] = [
 export default function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
 
   return (
     <section id="Experience" className="relative py-20 sm:py-28 px-4">
@@ -64,9 +66,9 @@ export default function Experience() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-extrabold tracking-tight mb-2">
-            Work{" "}
+            {t("experience.title").split(" ").slice(0, -1).join(" ")}{" "}
             <span className="bg-gradient-to-r from-[#9670df] to-[#b28ff1] bg-clip-text text-transparent">
-              Experience
+              {t("experience.title").split(" ").slice(-1)}
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#9670df] to-[#b28ff1] mx-auto rounded-full" />

@@ -14,22 +14,25 @@ import {
   X,
   Sun,
   Moon,
+  Globe,
 } from "lucide-react";
+import { useLang } from "../contexts/LanguageContext";
 
-const navItems = [
-  { label: "Home", icon: Home, href: "#Home" },
-  { label: "About", icon: User, href: "#About" },
-  { label: "Skills", icon: Code2, href: "#Skills" },
-  { label: "Projects", icon: FolderOpen, href: "#Projects" },
-  { label: "Experience", icon: Briefcase, href: "#Experience" },
-  { label: "Certifications", icon: Award, href: "#Certifications" },
-  { label: "Contacts", icon: Mail, href: "#Contacts" },
+const navItemKeys = [
+  { key: "nav.home", icon: Home, href: "#Home" },
+  { key: "nav.about", icon: User, href: "#About" },
+  { key: "nav.skills", icon: Code2, href: "#Skills" },
+  { key: "nav.projects", icon: FolderOpen, href: "#Projects" },
+  { key: "nav.experience", icon: Briefcase, href: "#Experience" },
+  { key: "nav.certifications", icon: Award, href: "#Certifications" },
+  { key: "nav.contacts", icon: Mail, href: "#Contacts" },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const { lang, toggleLang, t } = useLang();
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
@@ -61,9 +64,9 @@ export default function Navbar() {
         className="w-full pt-4 fixed top-0 md:flex flex-col items-center hidden z-30"
       >
         <div className="flex rounded-full px-8 py-3 items-center justify-center gap-10 text-lg font-light text-black dark:text-white bg-white/30 dark:bg-black/30 backdrop-blur-md border border-gray-300 dark:border-[#886fb8] shadow-lg">
-          {navItems.map((item) => (
+          {navItemKeys.map((item) => (
             <a
-              key={item.label}
+              key={item.key}
               href={item.href}
               onClick={(e) => {
                 e.preventDefault();
@@ -72,12 +75,22 @@ export default function Navbar() {
               className="flex items-center gap-2 cursor-pointer hover:text-[#886fb8] transition-all"
             >
               <item.icon size={16} />
-              {item.label}
+              {t(item.key)}
             </a>
           ))}
 
           {/* Divider */}
           <div className="w-[1px] h-6 bg-gray-400 dark:bg-gray-600" />
+
+          {/* Language toggle */}
+          <button
+            onClick={toggleLang}
+            className="flex items-center gap-1 px-2 py-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors text-sm"
+            aria-label="Toggle language"
+          >
+            <Globe size={16} />
+            {lang === "en" ? "中文" : "EN"}
+          </button>
 
           {/* Theme toggle */}
           <button
@@ -110,6 +123,14 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <button
+            onClick={toggleLang}
+            className="flex items-center gap-1 px-2 py-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors text-sm"
+            aria-label="Toggle language"
+          >
+            <Globe size={14} />
+            {lang === "en" ? "中文" : "EN"}
+          </button>
+          <button
             onClick={() => setDarkMode(!darkMode)}
             className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
             aria-label="Toggle theme"
@@ -129,7 +150,6 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -137,7 +157,6 @@ export default function Navbar() {
               className="fixed inset-0 bg-black/40 z-40 md:hidden"
               onClick={() => setMobileOpen(false)}
             />
-            {/* Drawer */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -146,9 +165,9 @@ export default function Navbar() {
               className="fixed top-0 w-[250px] h-screen bg-gray-50 dark:bg-[#0a0a0a] z-50 border-l border-gray-300 dark:border-gray-800 right-0"
             >
               <div className="flex flex-col items-start gap-8 pt-24 px-8 text-xl text-black dark:text-white">
-                {navItems.map((item) => (
+                {navItemKeys.map((item) => (
                   <a
-                    key={item.label}
+                    key={item.key}
                     href={item.href}
                     onClick={(e) => {
                       e.preventDefault();
@@ -158,7 +177,7 @@ export default function Navbar() {
                     className="flex items-center gap-4 cursor-pointer hover:text-[#886fb8]"
                   >
                     <item.icon size={20} />
-                    {item.label}
+                    {t(item.key)}
                   </a>
                 ))}
               </div>

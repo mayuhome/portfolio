@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Award, Calendar } from "lucide-react";
+import { useLang } from "../contexts/LanguageContext";
 
 interface Certification {
   title: string;
@@ -23,6 +24,7 @@ const certifications: Certification[] = [
 export default function Certifications() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
 
   // Double the array for seamless infinite scroll
   const doubledCerts = [...certifications, ...certifications];
@@ -40,7 +42,7 @@ export default function Certifications() {
         >
           <h2 className="text-4xl font-extrabold tracking-tight mb-2">
             <span className="bg-gradient-to-r from-[#9670df] to-[#b28ff1] bg-clip-text text-transparent">
-              Certifications
+              {t("certifications.title")}
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#9670df] to-[#b28ff1] mx-auto rounded-full" />
@@ -81,7 +83,7 @@ export default function Certifications() {
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-emerald-500" />
                   <span className="text-xs text-emerald-500 font-medium">
-                    Verified
+                    {t("certifications.verified")}
                   </span>
                 </div>
               </div>

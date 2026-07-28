@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLang } from "../contexts/LanguageContext";
 
 interface Skill {
   name: string;
@@ -11,13 +12,13 @@ interface Skill {
 }
 
 interface SkillCategory {
-  title: string;
+  titleKey: string;
   skills: Skill[];
 }
 
 const skillCategories: SkillCategory[] = [
   {
-    title: "Core Languages",
+    titleKey: "skills.languages",
     skills: [
       { name: "JavaScript", icon: "devicon-javascript-plain", color: "#F7DF1E", level: 3 },
       { name: "TypeScript", icon: "devicon-typescript-plain", color: "#3178C6", level: 3 },
@@ -27,7 +28,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Frontend",
+    titleKey: "skills.frontend",
     skills: [
       { name: "React", icon: "devicon-react-original", color: "#61DAFB", level: 3 },
       { name: "Next.js", icon: "devicon-nextjs-plain", color: "#FFFFFF", level: 3 },
@@ -36,7 +37,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Backend & Databases",
+    titleKey: "skills.backend",
     skills: [
       { name: "Node.js", icon: "devicon-nodejs-plain", color: "#339933", level: 3 },
       { name: "Express", icon: "devicon-express-original", color: "#FFFFFF", level: 2 },
@@ -45,7 +46,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Tools & Platforms",
+    titleKey: "skills.tools",
     skills: [
       { name: "Git", icon: "devicon-git-plain", color: "#F05032", level: 3 },
       { name: "Docker", icon: "devicon-docker-plain", color: "#2496ED", level: 2 },
@@ -58,6 +59,7 @@ const skillCategories: SkillCategory[] = [
 export default function Skills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
 
   return (
     <section id="Skills" className="relative py-20 sm:py-28 px-4">
@@ -71,9 +73,9 @@ export default function Skills() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-extrabold tracking-tight mb-2">
-            My{" "}
+            {t("skills.title").split(" ").slice(0, -1).join(" ")}{" "}
             <span className="bg-gradient-to-r from-[#9670df] to-[#b28ff1] bg-clip-text text-transparent">
-              Skills
+              {t("skills.title").split(" ").slice(-1)}
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#9670df] to-[#b28ff1] mx-auto rounded-full" />
@@ -82,7 +84,7 @@ export default function Skills() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {skillCategories.map((category, catIdx) => (
             <motion.div
-              key={category.title}
+              key={category.titleKey}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: catIdx * 0.15 }}
@@ -90,7 +92,7 @@ export default function Skills() {
             >
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#9670df] dark:bg-[#b28ff1]" />
-                {category.title}
+                {t(category.titleKey)}
               </h3>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">

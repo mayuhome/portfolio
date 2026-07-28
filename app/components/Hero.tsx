@@ -3,14 +3,17 @@
 import { motion } from "framer-motion";
 import { useTypewriter } from "react-simple-typewriter";
 import { GitFork, Link2, Mail, Download, ChevronDown } from "lucide-react";
+import { useLang } from "../contexts/LanguageContext";
 
 export default function Hero() {
+  const { t } = useLang();
+
   const [text] = useTypewriter({
     words: [
-      "Full-Stack Web Development",
-      "UI/UX Design",
-      "Creative Problem Solving",
-      "Scalable System Design",
+      t("hero.typewriter.1"),
+      t("hero.typewriter.2"),
+      t("hero.typewriter.3"),
+      t("hero.typewriter.4"),
     ],
     loop: true,
     typeSpeed: 70,
@@ -23,7 +26,6 @@ export default function Hero() {
       id="Home"
       className="relative min-h-screen flex items-center justify-center"
     >
-      {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -31,7 +33,7 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
         >
           <p className="text-sm sm:text-base font-light tracking-wider uppercase text-[#9670df] dark:text-[#b28ff1] mb-4">
-            Welcome to my portfolio
+            {t("hero.welcome")}
           </p>
         </motion.div>
 
@@ -52,7 +54,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-2xl sm:text-4xl font-light mb-6 h-12"
         >
-          <span className="text-slate-500 dark:text-slate-400">I love </span>
+          <span className="text-slate-500 dark:text-slate-400">{t("hero.love")}</span>
           <span className="text-[#9670df] dark:text-[#b28ff1] font-medium">
             {text}
             <span className="animate-pulse">|</span>
@@ -65,8 +67,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-base sm:text-lg font-light text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Passionate developer crafting beautiful, performant web experiences
-          with modern technologies. Always learning, always building.
+          {t("hero.desc")}
         </motion.p>
 
         <motion.div
@@ -81,7 +82,7 @@ export default function Hero() {
             className="flex items-center gap-2 px-8 py-3 bg-[#9670df] hover:bg-[#8563c9] dark:bg-[#5a4392] dark:hover:bg-[#b28ff1] text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-[#9670df]/30 transform hover:-translate-y-1"
           >
             <Download size={18} />
-            Download Resume
+            {t("hero.resume")}
           </a>
 
           <div className="flex items-center gap-3">

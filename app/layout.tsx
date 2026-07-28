@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -27,7 +28,7 @@ export default function RootLayout({
         />
       </head>
       <body className="overflow-x-hidden font-kanit bg-slate-50 dark:bg-[#0a0a0a] text-slate-900 dark:text-white transition-colors duration-300">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

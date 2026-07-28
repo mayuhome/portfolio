@@ -3,6 +3,7 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ExternalLink, GitFork, X } from "lucide-react";
+import { useLang } from "../contexts/LanguageContext";
 
 interface Project {
   title: string;
@@ -77,6 +78,7 @@ export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { t } = useLang();
 
   return (
     <section id="Projects" className="relative py-20 sm:py-28 px-4">
@@ -90,9 +92,9 @@ export default function Projects() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-extrabold tracking-tight mb-2">
-            My{" "}
+            {t("projects.title").split(" ").slice(0, -1).join(" ")}{" "}
             <span className="bg-gradient-to-r from-[#9670df] to-[#b28ff1] bg-clip-text text-transparent">
-              Projects
+              {t("projects.title").split(" ").slice(-1)}
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#9670df] to-[#b28ff1] mx-auto rounded-full" />
@@ -239,7 +241,7 @@ export default function Projects() {
                       className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 dark:bg-white/10 text-white dark:text-white rounded-lg font-medium hover:bg-slate-800 dark:hover:bg-white/20 transition-colors"
                     >
                       <GitFork size={16} />
-                      Source Code
+                      {t("projects.source")}
                     </a>
                   )}
                   {selectedProject.live && (
@@ -250,7 +252,7 @@ export default function Projects() {
                       className="flex items-center gap-2 px-5 py-2.5 bg-[#9670df] text-white rounded-lg font-medium hover:bg-[#8563c9] transition-colors"
                     >
                       <ExternalLink size={16} />
-                      Live Demo
+                      {t("projects.live")}
                     </a>
                   )}
                 </div>
