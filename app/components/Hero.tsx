@@ -32,7 +32,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-sm sm:text-base font-light tracking-wider uppercase text-[#9670df] dark:text-[#b28ff1] mb-4">
+          <p className="text-sm sm:text-base font-light tracking-wider uppercase text-accent mb-4">
             {t("hero.welcome")}
           </p>
         </motion.div>
@@ -43,7 +43,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-5xl sm:text-7xl font-extrabold tracking-tight mb-6"
         >
-          <span className="bg-gradient-to-r from-[#9670df] to-[#b28ff1] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-accent-dark to-accent bg-clip-text text-transparent">
             Maja
           </span>
         </motion.h1>
@@ -54,8 +54,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-2xl sm:text-4xl font-light mb-6 h-12"
         >
-          <span className="text-slate-500 dark:text-slate-400">{t("hero.love")}</span>
-          <span className="text-[#9670df] dark:text-[#b28ff1] font-medium">
+          <span className="text-muted">{t("hero.love")}</span>
+          <span className="text-accent font-medium">
             {text}
             <span className="animate-pulse">|</span>
           </span>
@@ -65,7 +65,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-base sm:text-lg font-light text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-base sm:text-lg font-light text-muted max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           {t("hero.desc")}
         </motion.p>
@@ -79,7 +79,7 @@ export default function Hero() {
           <a
             href="/resume.pdf"
             download
-            className="flex items-center gap-2 px-8 py-3 bg-[#9670df] hover:bg-[#8563c9] dark:bg-[#5a4392] dark:hover:bg-[#b28ff1] text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-[#9670df]/30 transform hover:-translate-y-1"
+            className="flex items-center gap-2 px-8 py-3 bg-accent-dark hover:bg-accent-hover text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-accent/30 transform hover:-translate-y-1"
           >
             <Download size={18} />
             {t("hero.resume")}
@@ -90,7 +90,7 @@ export default function Hero() {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 rounded-full bg-slate-200/50 dark:bg-white/10 hover:bg-[#9670df]/20 dark:hover:bg-[#b28ff1]/20 border border-slate-300/50 dark:border-white/20 transition-all duration-300 hover:-translate-y-1"
+              className="p-3 rounded-full bg-card hover:bg-accent/10 border border-card-border transition-all duration-300 hover:-translate-y-1"
             >
               <GitFork size={20} />
             </a>
@@ -98,13 +98,13 @@ export default function Hero() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 rounded-full bg-slate-200/50 dark:bg-white/10 hover:bg-[#9670df]/20 dark:hover:bg-[#b28ff1]/20 border border-slate-300/50 dark:border-white/20 transition-all duration-300 hover:-translate-y-1"
+              className="p-3 rounded-full bg-card hover:bg-accent/10 border border-card-border transition-all duration-300 hover:-translate-y-1"
             >
               <Link2 size={20} />
             </a>
             <a
               href="mailto:hello@example.com"
-              className="p-3 rounded-full bg-slate-200/50 dark:bg-white/10 hover:bg-[#9670df]/20 dark:hover:bg-[#b28ff1]/20 border border-slate-300/50 dark:border-white/20 transition-all duration-300 hover:-translate-y-1"
+              className="p-3 rounded-full bg-card hover:bg-accent/10 border border-card-border transition-all duration-300 hover:-translate-y-1"
             >
               <Mail size={20} />
             </a>
@@ -120,7 +120,7 @@ export default function Hero() {
         >
           <ChevronDown
             size={28}
-            className="animate-bounce text-[#9670df] dark:text-[#b28ff1]"
+            className="animate-bounce text-accent"
           />
         </motion.a>
       </div>

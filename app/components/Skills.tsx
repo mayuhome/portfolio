@@ -63,7 +63,7 @@ export default function Skills() {
 
   return (
     <section id="Skills" className="relative py-20 sm:py-28 px-4">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-[#9670df] to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
 
       <div ref={ref} className="max-w-6xl mx-auto">
         <motion.div
@@ -74,11 +74,11 @@ export default function Skills() {
         >
           <h2 className="text-4xl font-extrabold tracking-tight mb-2">
             {t("skills.title").split(" ").slice(0, -1).join(" ")}{" "}
-            <span className="bg-gradient-to-r from-[#9670df] to-[#b28ff1] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-accent-dark to-accent bg-clip-text text-transparent">
               {t("skills.title").split(" ").slice(-1)}
             </span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#9670df] to-[#b28ff1] mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-gradient-to-r from-accent-dark to-accent mx-auto rounded-full" />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -88,10 +88,10 @@ export default function Skills() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: catIdx * 0.15 }}
-              className="p-6 md:p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-[#b28ff1] transition-all duration-300 shadow-sm hover:shadow-xl"
+              className="p-6 md:p-8 rounded-2xl bg-card border border-card-border hover:border-accent transition-all duration-300 shadow-sm hover:shadow-xl"
             >
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#9670df] dark:bg-[#b28ff1]" />
+                <span className="w-2 h-2 rounded-full bg-accent" />
                 {t(category.titleKey)}
               </h3>
 
@@ -102,10 +102,7 @@ export default function Skills() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.4, delay: catIdx * 0.15 + i * 0.08 }}
-                    className="group p-4 rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 hover:border-[#b28ff1] transition-all duration-300 hover:-translate-y-1 cursor-default"
-                    style={{
-                      boxShadow: `0 0 0px transparent`,
-                    }}
+                    className="group p-4 rounded-xl bg-background border border-card-border hover:border-accent transition-all duration-300 hover:-translate-y-1 cursor-default"
                     onMouseEnter={(e) => {
                       e.currentTarget.style.boxShadow = `0 0 20px ${skill.color}20`;
                     }}
@@ -124,8 +121,8 @@ export default function Skills() {
                           key={level}
                           className={`h-1 flex-1 rounded-full transition-all duration-500 ${
                             level <= skill.level
-                              ? "bg-gradient-to-r from-[#9670df] to-[#b28ff1]"
-                              : "bg-slate-200 dark:bg-slate-700"
+                              ? "bg-gradient-to-r from-accent-dark to-accent"
+                              : "bg-card-border"
                           }`}
                           style={{
                             transitionDelay: isInView

@@ -18,8 +18,7 @@ interface Project {
 const projects: Project[] = [
   {
     title: "E-Commerce Platform",
-    description:
-      "Full-stack e-commerce application with real-time inventory management, payment processing, and admin dashboard. Built with modern technologies for optimal performance.",
+    description: "Full-stack e-commerce application with real-time inventory management, payment processing, and admin dashboard. Built with modern technologies for optimal performance.",
     tech: ["Next.js", "TypeScript", "Stripe", "PostgreSQL", "Tailwind"],
     image: "/projects/ecommerce.jpg",
     github: "https://github.com",
@@ -28,8 +27,7 @@ const projects: Project[] = [
   },
   {
     title: "AI Chat Application",
-    description:
-      "Real-time chat application powered by AI with natural language processing capabilities. Features include message history, typing indicators, and smart suggestions.",
+    description: "Real-time chat application powered by AI with natural language processing capabilities. Features include message history, typing indicators, and smart suggestions.",
     tech: ["React", "Node.js", "OpenAI", "Socket.io", "MongoDB"],
     image: "/projects/chat.jpg",
     github: "https://github.com",
@@ -37,8 +35,7 @@ const projects: Project[] = [
   },
   {
     title: "Task Management Dashboard",
-    description:
-      "Collaborative project management tool with Kanban boards, time tracking, team analytics, and real-time notifications for seamless workflow management.",
+    description: "Collaborative project management tool with Kanban boards, time tracking, team analytics, and real-time notifications for seamless workflow management.",
     tech: ["Vue.js", "Express", "PostgreSQL", "Redis", "Docker"],
     image: "/projects/task.jpg",
     github: "https://github.com",
@@ -46,8 +43,7 @@ const projects: Project[] = [
   },
   {
     title: "Weather Forecast App",
-    description:
-      "Beautiful weather application with 7-day forecasts, interactive maps, severe weather alerts, and location-based recommendations.",
+    description: "Beautiful weather application with 7-day forecasts, interactive maps, severe weather alerts, and location-based recommendations.",
     tech: ["React", "TypeScript", "OpenWeather API", "Mapbox"],
     image: "/projects/weather.jpg",
     github: "https://github.com",
@@ -56,8 +52,7 @@ const projects: Project[] = [
   },
   {
     title: "Portfolio Generator",
-    description:
-      "Dynamic portfolio generator that creates stunning portfolio websites from markdown files. Features customizable themes and automatic deployment.",
+    description: "Dynamic portfolio generator that creates stunning portfolio websites from markdown files. Features customizable themes and automatic deployment.",
     tech: ["Next.js", "MDX", "Tailwind", "Vercel"],
     image: "/projects/portfolio.jpg",
     github: "https://github.com",
@@ -65,8 +60,7 @@ const projects: Project[] = [
   },
   {
     title: "Fitness Tracker",
-    description:
-      "Comprehensive fitness tracking app with workout logging, progress visualization, meal planning, and integration with wearable devices.",
+    description: "Comprehensive fitness tracking app with workout logging, progress visualization, meal planning, and integration with wearable devices.",
     tech: ["React Native", "Firebase", "Chart.js", "Node.js"],
     image: "/projects/fitness.jpg",
     github: "https://github.com",
@@ -82,7 +76,7 @@ export default function Projects() {
 
   return (
     <section id="Projects" className="relative py-20 sm:py-28 px-4">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-[#9670df] to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
 
       <div ref={ref} className="max-w-6xl mx-auto">
         <motion.div
@@ -93,11 +87,11 @@ export default function Projects() {
         >
           <h2 className="text-4xl font-extrabold tracking-tight mb-2">
             {t("projects.title").split(" ").slice(0, -1).join(" ")}{" "}
-            <span className="bg-gradient-to-r from-[#9670df] to-[#b28ff1] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-accent-dark to-accent bg-clip-text text-transparent">
               {t("projects.title").split(" ").slice(-1)}
             </span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#9670df] to-[#b28ff1] mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-gradient-to-r from-accent-dark to-accent mx-auto rounded-full" />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -108,9 +102,8 @@ export default function Projects() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               onClick={() => setSelectedProject(project)}
-              className="group relative rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-[#b28ff1] transition-all duration-300 shadow-sm hover:shadow-xl overflow-hidden cursor-pointer"
+              className="group relative rounded-2xl bg-card border border-card-border hover:border-accent transition-all duration-300 shadow-sm hover:shadow-xl overflow-hidden cursor-pointer"
             >
-              {/* Project image placeholder */}
               <div
                 className="h-48 relative overflow-hidden"
                 style={{
@@ -125,15 +118,14 @@ export default function Projects() {
                     {project.title.charAt(0)}
                   </div>
                 </div>
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
+                <div className="absolute inset-0 bg-card/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
                   {project.github && (
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="p-3 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-[#9670df] hover:text-white transition-all duration-300"
+                      className="p-3 rounded-full bg-background hover:bg-accent hover:text-white transition-all duration-300"
                     >
                       <GitFork size={20} />
                     </a>
@@ -144,7 +136,7 @@ export default function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="p-3 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-[#9670df] hover:text-white transition-all duration-300"
+                      className="p-3 rounded-full bg-background hover:bg-accent hover:text-white transition-all duration-300"
                     >
                       <ExternalLink size={20} />
                     </a>
@@ -153,17 +145,17 @@ export default function Projects() {
               </div>
 
               <div className="p-6">
-                <h3 className="text-lg font-bold mb-2 group-hover:text-[#9670df] dark:group-hover:text-[#b28ff1] transition-colors">
+                <h3 className="text-lg font-bold mb-2 group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 font-light mb-4 line-clamp-2">
+                <p className="text-sm text-muted font-light mb-4 line-clamp-2">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-2.5 py-1 text-xs font-semibold rounded-full bg-[#9670df]/10 text-[#9670df] dark:text-[#b28ff1] border border-[#9670df]/20"
+                      className="px-2.5 py-1 text-xs font-semibold rounded-full bg-accent/10 text-accent border border-accent/20"
                     >
                       {t}
                     </span>
@@ -182,14 +174,14 @@ export default function Projects() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4"
+            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-2xl w-full bg-white dark:bg-[#111827] rounded-2xl overflow-hidden"
+              className="relative max-w-2xl w-full bg-card rounded-2xl overflow-hidden border border-card-border"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -219,14 +211,14 @@ export default function Projects() {
                 <h3 className="text-2xl font-bold mb-3">
                   {selectedProject.title}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 font-light mb-6 leading-relaxed">
+                <p className="text-muted font-light mb-6 leading-relaxed">
                   {selectedProject.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {selectedProject.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-3 py-1.5 text-sm font-semibold rounded-full bg-[#9670df]/10 text-[#9670df] dark:text-[#b28ff1] border border-[#9670df]/20"
+                      className="px-3 py-1.5 text-sm font-semibold rounded-full bg-accent/10 text-accent border border-accent/20"
                     >
                       {t}
                     </span>
@@ -238,7 +230,7 @@ export default function Projects() {
                       href={selectedProject.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 dark:bg-white/10 text-white dark:text-white rounded-lg font-medium hover:bg-slate-800 dark:hover:bg-white/20 transition-colors"
+                      className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-lg font-medium hover:opacity-90 transition-colors"
                     >
                       <GitFork size={16} />
                       {t("projects.source")}
@@ -249,7 +241,7 @@ export default function Projects() {
                       href={selectedProject.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-5 py-2.5 bg-[#9670df] text-white rounded-lg font-medium hover:bg-[#8563c9] transition-colors"
+                      className="flex items-center gap-2 px-5 py-2.5 bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors"
                     >
                       <ExternalLink size={16} />
                       {t("projects.live")}

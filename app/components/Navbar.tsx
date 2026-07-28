@@ -63,7 +63,7 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="w-full pt-4 fixed top-0 md:flex flex-col items-center hidden z-30"
       >
-        <div className="flex rounded-full px-8 py-3 items-center justify-center gap-10 text-lg font-light text-black dark:text-white bg-white/30 dark:bg-black/30 backdrop-blur-md border border-gray-300 dark:border-[#886fb8] shadow-lg">
+        <div className="flex rounded-full px-8 py-3 items-center justify-center gap-10 text-lg font-light text-foreground bg-card/60 backdrop-blur-xl border border-card-border shadow-lg">
           {navItemKeys.map((item) => (
             <a
               key={item.key}
@@ -72,30 +72,27 @@ export default function Navbar() {
                 e.preventDefault();
                 scrollTo(item.href.slice(1));
               }}
-              className="flex items-center gap-2 cursor-pointer hover:text-[#886fb8] transition-all"
+              className="flex items-center gap-2 cursor-pointer hover:text-accent transition-all"
             >
               <item.icon size={16} />
               {t(item.key)}
             </a>
           ))}
 
-          {/* Divider */}
-          <div className="w-[1px] h-6 bg-gray-400 dark:bg-gray-600" />
+          <div className="w-[1px] h-6 bg-card-border" />
 
-          {/* Language toggle */}
           <button
             onClick={toggleLang}
-            className="flex items-center gap-1 px-2 py-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors text-sm"
+            className="flex items-center gap-1 px-2 py-1.5 rounded-full hover:bg-card transition-colors text-sm"
             aria-label="Toggle language"
           >
             <Globe size={16} />
             {lang === "en" ? "中文" : "EN"}
           </button>
 
-          {/* Theme toggle */}
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 rounded-full hover:bg-card transition-colors"
             aria-label="Toggle theme"
           >
             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
@@ -108,7 +105,7 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 h-16 w-full border-b dark:border-gray-800 bg-white/70 dark:bg-black/70 md:hidden backdrop-blur-lg z-50 flex justify-between items-center px-4"
+        className="fixed top-0 h-16 w-full border-b border-card-border bg-card/70 backdrop-blur-xl md:hidden z-50 flex justify-between items-center px-4"
       >
         <a
           href="#Home"
@@ -116,7 +113,7 @@ export default function Navbar() {
             e.preventDefault();
             scrollTo("Home");
           }}
-          className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-[#9670df] to-[#b28ff1] bg-clip-text text-transparent"
+          className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-accent-dark to-accent bg-clip-text text-transparent"
         >
           Portfolio
         </a>
@@ -124,7 +121,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleLang}
-            className="flex items-center gap-1 px-2 py-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors text-sm"
+            className="flex items-center gap-1 px-2 py-1.5 rounded-full hover:bg-card transition-colors text-sm"
             aria-label="Toggle language"
           >
             <Globe size={14} />
@@ -132,14 +129,14 @@ export default function Navbar() {
           </button>
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 rounded-full hover:bg-card transition-colors"
             aria-label="Toggle theme"
           >
             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 rounded-full hover:bg-card transition-colors"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -162,9 +159,9 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-0 w-[250px] h-screen bg-gray-50 dark:bg-[#0a0a0a] z-50 border-l border-gray-300 dark:border-gray-800 right-0"
+              className="fixed top-0 w-[250px] h-screen bg-background z-50 border-l border-card-border right-0"
             >
-              <div className="flex flex-col items-start gap-8 pt-24 px-8 text-xl text-black dark:text-white">
+              <div className="flex flex-col items-start gap-8 pt-24 px-8 text-xl text-foreground">
                 {navItemKeys.map((item) => (
                   <a
                     key={item.key}
@@ -174,7 +171,7 @@ export default function Navbar() {
                       setMobileOpen(false);
                       scrollTo(item.href.slice(1));
                     }}
-                    className="flex items-center gap-4 cursor-pointer hover:text-[#886fb8]"
+                    className="flex items-center gap-4 cursor-pointer hover:text-accent"
                   >
                     <item.icon size={20} />
                     {t(item.key)}

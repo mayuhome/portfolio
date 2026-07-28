@@ -6,16 +6,25 @@
   --color-accent: #b28ff1;
   --color-accent-dark: #9670df;
   --color-accent-hover: #8563c9;
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-muted: var(--muted);
 }
 
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
+  --card: #ffffff;
+  --card-border: #e2e8f0;
+  --muted: #64748b;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #f1f5f9;
+  --background: #0f0e1a;
+  --foreground: #e2e0ef;
+  --card: #1a1830;
+  --card-border: #2d2a4a;
+  --muted: #9896a8;
 }
 
 html {
@@ -120,14 +129,4 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #9670df;
-}
-
-/* Skill card glow */
-.skill-card-glow {
-  transition: all 0.3s ease;
-}
-
-.skill-card-glow:hover {
-  box-shadow: 0 0 20px rgba(178, 143, 241, 0.2);
-  border-color: #b28ff1;
 }
