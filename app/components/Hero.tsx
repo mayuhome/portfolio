@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTypewriter } from "react-simple-typewriter";
 import { GitFork, Link2, Mail, Download, ChevronDown } from "lucide-react";
@@ -22,21 +21,8 @@ export default function Hero() {
   return (
     <section
       id="Home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center"
     >
-      {/* Animated blobs - GPU accelerated */}
-      <div className="absolute inset-0 overflow-hidden" style={{ contain: 'layout style paint' }}>
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#9670df]/15 dark:bg-[#b28ff1]/8 rounded-full filter blur-[150px] animate-blob" style={{ willChange: 'transform', transform: 'translateZ(0)' }} />
-        <div className="absolute top-0 -right-20 w-96 h-96 bg-blue-400/15 dark:bg-blue-600/8 rounded-full filter blur-[150px] animate-blob animation-delay-2000" style={{ willChange: 'transform', transform: 'translateZ(0)' }} />
-        <div className="absolute -bottom-32 left-20 w-96 h-96 bg-emerald-400/15 dark:bg-emerald-500/8 rounded-full filter blur-[150px] animate-blob animation-delay-4000" style={{ willChange: 'transform', transform: 'translateZ(0)' }} />
-      </div>
-
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 grid-pattern opacity-50" />
-
-      {/* Floating particles */}
-      <FloatingParticles />
-
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <motion.div
@@ -138,66 +124,5 @@ export default function Hero() {
         </motion.a>
       </div>
     </section>
-  );
-}
-
-function FloatingParticles() {
-  const [particles, setParticles] = useState<Array<{
-    id: number;
-    left: string;
-    size: number;
-    duration: number;
-    delay: number;
-    shape: string;
-  }>>([]);
-
-  useEffect(() => {
-    setParticles(
-      Array.from({ length: 15 }, (_, i) => ({
-        id: i,
-        left: `${(i * 7.3 + 10) % 100}%`,
-        size: (i * 1.7 + 4) % 10 + 4,
-        duration: (i * 2.3 + 12) % 15 + 10,
-        delay: (i * 1.5) % 10,
-        shape: i % 3 === 0 ? "circle" : i % 3 === 1 ? "square" : "code",
-      }))
-    );
-  }, []);
-
-  if (particles.length === 0) return null;
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((p) => (
-        <div
-          key={p.id}
-          className="absolute animate-float-up opacity-20 dark:opacity-10"
-          style={{
-            left: p.left,
-            animationDuration: `${p.duration}s`,
-            animationDelay: `${p.delay}s`,
-          }}
-        >
-          {p.shape === "circle" ? (
-            <div
-              className="rounded-full bg-[#b28ff1]"
-              style={{ width: p.size, height: p.size }}
-            />
-          ) : p.shape === "square" ? (
-            <div
-              className="rounded-sm bg-blue-400"
-              style={{ width: p.size, height: p.size }}
-            />
-          ) : (
-            <span
-              className="text-emerald-400 font-mono"
-              style={{ fontSize: p.size }}
-            >
-              {"</>"}
-            </span>
-          )}
-        </div>
-      ))}
-    </div>
   );
 }

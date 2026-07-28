@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import AnimatedBackground from "./components/AnimatedBackground";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
@@ -10,8 +11,9 @@ import Contact from "./components/Contact";
 export default function Home() {
   return (
     <>
+      <AnimatedBackground />
       <Navbar />
-      <main>
+      <main className="relative">
         <Hero />
         <About />
         <Skills />
