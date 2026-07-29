@@ -4,22 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Award, Calendar } from "lucide-react";
 import { useLang } from "../contexts/LanguageContext";
-
-interface Certification {
-  title: string;
-  issuer: string;
-  date: string;
-  color: string;
-}
-
-const certifications: Certification[] = [
-  { title: "AWS Certified Developer", issuer: "Amazon Web Services", date: "2024", color: "#FF9900" },
-  { title: "Meta Frontend Developer", issuer: "Meta", date: "2024", color: "#0668E1" },
-  { title: "Google UX Design", issuer: "Google", date: "2023", color: "#4285F4" },
-  { title: "JavaScript Algorithms", issuer: "freeCodeCamp", date: "2023", color: "#0A0A23" },
-  { title: "React Developer Certification", issuer: "HackerRank", date: "2023", color: "#00EA64" },
-  { title: "MongoDB Associate Developer", issuer: "MongoDB", date: "2024", color: "#47A248" },
-];
+import { certifications } from "../data/certifications";
 
 export default function Certifications() {
   const ref = useRef(null);
@@ -58,7 +43,7 @@ export default function Certifications() {
               key={`${cert.title}-${i}`}
               className="flex-shrink-0 w-[300px] sm:w-[350px] mx-3"
             >
-              <div className="h-[200px] p-6 rounded-2xl bg-card border border-card-border hover:border-accent transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between">
+              <div className="h-50 p-6 rounded-2xl bg-card border border-card-border hover:border-accent transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <div

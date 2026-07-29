@@ -15,18 +15,20 @@ import {
   Sun,
   Moon,
   Globe,
+  type LucideIcon,
 } from "lucide-react";
 import { useLang } from "../contexts/LanguageContext";
+import { navItems } from "../data/navigation";
 
-const navItemKeys = [
-  { key: "nav.home", icon: Home, href: "#Home" },
-  { key: "nav.about", icon: User, href: "#About" },
-  { key: "nav.skills", icon: Code2, href: "#Skills" },
-  { key: "nav.projects", icon: FolderOpen, href: "#Projects" },
-  { key: "nav.experience", icon: Briefcase, href: "#Experience" },
-  { key: "nav.certifications", icon: Award, href: "#Certifications" },
-  { key: "nav.contacts", icon: Mail, href: "#Contacts" },
-];
+const iconMap: Record<string, LucideIcon> = {
+  Home,
+  User,
+  Code2,
+  FolderOpen,
+  Briefcase,
+  Award,
+  Mail,
+};
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -62,7 +64,7 @@ export default function Navbar() {
 
   // IntersectionObserver for active section tracking
   useEffect(() => {
-    const sectionIds = navItemKeys.map((item) => item.href.slice(1));
+    const sectionIds = navItems.map((item) => item.href.slice(1));
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -104,8 +106,9 @@ export default function Navbar() {
         className="w-full pt-4 fixed top-0 md:flex flex-col items-center hidden z-30"
       >
         <div className="relative flex rounded-full px-4 py-2 items-center justify-center gap-1 text-base font-light text-foreground bg-card/60 backdrop-blur-xl border border-card-border shadow-lg">
-          {navItemKeys.map((item) => {
+          {navItems.map((item) => {
             const isActive = activeSection === item.href.slice(1);
+            const Icon = iconMap[item.icon];
             return (
               <a
                 key={item.key}
@@ -132,7 +135,7 @@ export default function Navbar() {
                   />
                 )}
                 <span className="relative z-10 flex items-center gap-1.5">
-                  <item.icon size={15} />
+                  {Icon && <Icon size={15} />}
                   {t(item.key)}
                 </span>
               </a>
@@ -222,8 +225,9 @@ export default function Navbar() {
               className="fixed top-0 w-[250px] h-screen bg-background z-50 border-l border-card-border right-0"
             >
               <div className="flex flex-col items-start gap-6 pt-24 px-8 text-xl">
-                {navItemKeys.map((item) => {
+                {navItems.map((item) => {
                   const isActive = activeSection === item.href.slice(1);
+                  const Icon = iconMap[item.icon];
                   return (
                     <a
                       key={item.key}
@@ -239,7 +243,7 @@ export default function Navbar() {
                           : "text-muted hover:text-foreground"
                       }`}
                     >
-                      <item.icon size={20} />
+                      {Icon && <Icon size={20} />}
                       {t(item.key)}
                       {isActive && (
                         <span className="w-1.5 h-1.5 rounded-full bg-accent ml-auto" />

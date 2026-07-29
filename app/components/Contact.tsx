@@ -2,8 +2,15 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Send, GitFork, Link2, Mail, MapPin, Phone } from "lucide-react";
+import { Send, GitFork, Link2, Mail, MapPin, Phone, type LucideIcon } from "lucide-react";
 import { useLang } from "../contexts/LanguageContext";
+import { contactInfo, socialLinks } from "../data/contact";
+
+const socialIcons: Record<string, LucideIcon> = {
+  GitHub: GitFork,
+  LinkedIn: Link2,
+  Email: Mail,
+};
 
 export default function Contact() {
   const ref = useRef(null);
@@ -107,7 +114,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-muted">Email</p>
-                    <p className="font-medium">hello@example.com</p>
+                    <p className="font-medium">{contactInfo.email}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -116,7 +123,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-muted">Phone</p>
-                    <p className="font-medium">+1 (234) 567-890</p>
+                    <p className="font-medium">{contactInfo.phone}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -125,29 +132,28 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-muted">{t("contact.location")}</p>
-                    <p className="font-medium">San Francisco, CA</p>
+                    <p className="font-medium">{contactInfo.location}</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="flex gap-4">
-              {[
-                { icon: GitFork, label: "GitHub", href: "https://github.com" },
-                { icon: Link2, label: "LinkedIn", href: "https://linkedin.com" },
-                { icon: Mail, label: "Email", href: "mailto:hello@example.com" },
-              ].map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 p-4 rounded-xl bg-card border border-card-border hover:border-accent transition-all duration-300 hover:-translate-y-1"
-                >
-                  <s.icon size={20} />
-                  <span className="text-sm font-medium">{s.label}</span>
-                </a>
-              ))}
+              {socialLinks.map((s) => {
+                const Icon = socialIcons[s.label];
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 p-4 rounded-xl bg-card border border-card-border hover:border-accent transition-all duration-300 hover:-translate-y-1"
+                  >
+                    {Icon && <Icon size={20} />}
+                    <span className="text-sm font-medium">{s.label}</span>
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
         </div>

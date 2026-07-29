@@ -2,20 +2,21 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code2, Server, Palette, Zap } from "lucide-react";
+import { Code2, Server, Palette, Zap, type LucideIcon } from "lucide-react";
 import { useLang } from "../contexts/LanguageContext";
+import { highlights } from "../data/about";
+
+const iconMap: Record<string, LucideIcon> = {
+  Code2,
+  Server,
+  Palette,
+  Zap,
+};
 
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLang();
-
-  const highlights = [
-    { icon: Code2, titleKey: "about.frontend", descKey: "about.frontend.desc" },
-    { icon: Server, titleKey: "about.backend", descKey: "about.backend.desc" },
-    { icon: Palette, titleKey: "about.design", descKey: "about.design.desc" },
-    { icon: Zap, titleKey: "about.performance", descKey: "about.performance.desc" },
-  ];
 
   return (
     <section id="About" className="relative py-20 sm:py-28 px-4">
@@ -69,21 +70,24 @@ export default function About() {
             </p>
 
             <div className="grid grid-cols-2 gap-4">
-              {highlights.map((item, i) => (
-                <motion.div
-                  key={item.titleKey}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.6 + i * 0.1 }}
-                  className="p-4 rounded-xl bg-card border border-card-border hover:border-accent transition-all duration-300"
-                >
-                  <item.icon className="text-accent mb-2" size={20} />
-                  <h4 className="font-bold text-sm mb-1">{t(item.titleKey)}</h4>
-                  <p className="text-xs text-muted font-light">
-                    {t(item.descKey)}
-                  </p>
-                </motion.div>
-              ))}
+              {highlights.map((item, i) => {
+                const Icon = iconMap[item.icon];
+                return (
+                  <motion.div
+                    key={item.titleKey}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.4, delay: 0.6 + i * 0.1 }}
+                    className="p-4 rounded-xl bg-card border border-card-border hover:border-accent transition-all duration-300"
+                  >
+                    {Icon && <Icon className="text-accent mb-2" size={20} />}
+                    <h4 className="font-bold text-sm mb-1">{t(item.titleKey)}</h4>
+                    <p className="text-xs text-muted font-light">
+                      {t(item.descKey)}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>
