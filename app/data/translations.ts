@@ -46,6 +46,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     "projects.title": "My Projects",
     "projects.source": "Source Code",
     "projects.live": "Live Demo",
+    "projects.responsibilities": "Responsibilities",
+    "projects.achievements": "Key Achievements",
 
     // Experience
     "experience.title": "Work Experience",
@@ -53,6 +55,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Certifications
     "certifications.title": "Certifications",
     "certifications.verified": "Verified",
+    "certifications.noFile": "Certificate not uploaded yet",
+    "certifications.view": "View Certificate",
+    "certifications.close": "Close",
 
     // Contact
     "contact.title": "Get In Touch",
@@ -114,6 +119,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     "projects.title": "我的项目",
     "projects.source": "源代码",
     "projects.live": "在线演示",
+    "projects.responsibilities": "职责",
+    "projects.achievements": "主要成就",
 
     // Experience
     "experience.title": "工作经历",
@@ -121,6 +128,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Certifications
     "certifications.title": "专业认证",
     "certifications.verified": "已认证",
+    "certifications.noFile": "证书暂未上传",
+    "certifications.view": "查看证书",
+    "certifications.close": "关闭",
 
     // Contact
     "contact.title": "联系我",
