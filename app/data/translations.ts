@@ -80,7 +80,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     "nav.contacts": "联系",
 
     // Hero
-    "hero.welcome": "欢迎来到我的作品集",
+    "hero.welcome": "欢迎查看我的简历",
     "hero.love": "我热爱 ",
     "hero.typewriter.1": "全栈Web开发",
     "hero.typewriter.2": "UI/UX设计",

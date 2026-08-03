@@ -6,10 +6,18 @@ export interface Certification {
 }
 
 export const certifications: Certification[] = [
-  { title: "AWS Certified Developer", issuer: "Amazon Web Services", date: "2024", color: "#FF9900" },
-  { title: "Meta Frontend Developer", issuer: "Meta", date: "2024", color: "#0668E1" },
-  { title: "Google UX Design", issuer: "Google", date: "2023", color: "#4285F4" },
-  { title: "JavaScript Algorithms", issuer: "freeCodeCamp", date: "2023", color: "#0A0A23" },
-  { title: "React Developer Certification", issuer: "HackerRank", date: "2023", color: "#00EA64" },
-  { title: "MongoDB Associate Developer", issuer: "MongoDB", date: "2024", color: "#47A248" },
+  {
+    title: 'Systems Analyst',
+    issuer:
+      'China Computer Federation (CCF) - National Professional Qualification',
+    date: '2026',
+    color: '#FF9900',
+  },
+  {
+    title: 'Systems Architect (Level 2)',
+    issuer:
+      'China Computer Federation (CCF) - National Professional Qualification',
+    date: '2022',
+    color: '#0668E1',
+  },
 ];

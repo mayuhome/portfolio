@@ -10,9 +10,9 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "E-Commerce Platform",
-    description: "Full-stack e-commerce application with real-time inventory management, payment processing, and admin dashboard. Built with modern technologies for optimal performance.",
-    tech: ["Next.js", "TypeScript", "Stripe", "PostgreSQL", "Tailwind"],
+    title: "Industrial IoT Platform",
+    description: " A comprehensive Industrial IoT platform that enables real-time monitoring, predictive maintenance, and data analytics for manufacturing equipment. It integrates with various sensors and devices to provide actionable insights.",
+    tech: ["Angular", ".NET", "MQTT", "PostgreSQL", "Tailwind"],
     image: "/projects/ecommerce.jpg",
     github: "https://github.com",
     live: "https://example.com",

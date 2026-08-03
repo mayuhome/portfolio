@@ -10,13 +10,13 @@ export interface SocialLink {
 }
 
 export const contactInfo: ContactInfo = {
-  email: "mayuhome@163.com",
-  phone: "+86 189 1366 5695",
-  location: "Shanghai, China",
+  email: 'mayuhome@163.com',
+  phone: '+86 189 1366 5695',
+  location: 'Shanghai, China',
 };
 
 export const socialLinks: SocialLink[] = [
-  { label: "GitHub", href: "https://github.com/mayuhome" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Email", href: "mailto:mayuhome@163.com" },
+  { label: 'GitHub', href: 'https://github.com/mayuhome' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jade-ma-436794118/' },
+  { label: 'Email', href: 'mailto:mayuhome@163.com' },
 ];

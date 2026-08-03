@@ -8,26 +8,22 @@ export interface ExperienceItem {
 
 export const experiences: ExperienceItem[] = [
   {
-    role: "Senior Frontend Developer",
-    company: "Tech Innovations Inc.",
-    duration: "Jan 2024 - Present",
+    role: "Senior Software Developer",
+    company: "Trumpf GmbH + Co. KG",
+    duration: "Jun 2020 - Present",
     description: [
-      "Led the development of a next-gen dashboard platform serving 50K+ users",
-      "Improved application performance by 40% through code optimization and lazy loading",
-      "Mentored a team of 5 junior developers and conducted code reviews",
+      "Develop and maintain industry-leading software solutions for manufacturing IOT systems",
     ],
-    tech: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+    tech: ["Angular", "TypeScript", "Nest.js", ".NET", "Tailwind CSS"],
   },
   {
     role: "Full Stack Developer",
-    company: "Digital Solutions Co.",
-    duration: "Jun 2022 - Dec 2023",
+    company: "Capgemini",
+    duration: "Mar 2015 - Jun 2020",
     description: [
-      "Built and maintained microservices architecture handling 1M+ daily requests",
       "Implemented real-time notification system using WebSocket",
-      "Reduced deployment time by 60% with CI/CD pipeline automation",
     ],
-    tech: ["Node.js", "React", "PostgreSQL", "Docker"],
+    tech: ["Node.js", "Angular", ".NET", "Vuejs"],
   },
   {
     role: "Frontend Developer Intern",
