@@ -40,7 +40,7 @@ jobs:
             --access-key-secret ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }} \
             --region cn-shanghai
 
-      # --- 步骤 4：通过云助手远程执行部署命令（核心修正）---
+      # --- 步骤 4：通过 OpenAPI 方式调用 RunCommand ---
       - name: Deploy on Simple Application Server via Cloud Assistant
         run: |
           DEPLOY_COMMAND="
@@ -51,9 +51,8 @@ jobs:
           docker run -d --name my-nextjs-app -p 3003:3003 -e NODE_ENV=production -e PORT=3003 -e HOSTNAME=0.0.0.0 --restart always ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
           "
 
-          # 关键修正：通过 --product swas-open 显式指定产品为轻量应用服务器
-          aliyun --product swas-open RunCommand \
-            --api-version 2020-06-01 \
+          # 关键修改：使用 aliyun --product 和 --version 直接调用 OpenAPI
+          aliyun --product swas-open --version 2020-06-01 RunCommand \
             --RegionId "cn-shanghai" \
             --InstanceId "803b51fa73d34db8be7c60e05b03aec4" \
             --Type "RunShellScript" \
