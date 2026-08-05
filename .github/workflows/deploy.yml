@@ -53,10 +53,11 @@ jobs:
           "
           
           # 调用阿里云CLI，使用云助手执行命令
-          aliyun ecs RunCommand \
-            --InstanceId.1 "803b51fa73d34db8be7c60e05b03aec4" \
+          aliyun swas-open RunCommand \
+            --RegionId "cn-shanghai" \
+            --InstanceId "803b51fa73d34db8be7c60e05b03aec4" \
             --Type RunShellScript \
             --CommandContent "$DEPLOY_COMMAND" \
             --Timeout 600
 
-          echo "部署命令已通过云助手发送成功！"
+          echo "部署命令已通过轻量服务器发送成功！"
