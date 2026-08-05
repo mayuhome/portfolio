@@ -27,11 +27,17 @@ jobs:
           push: true
           tags: ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
 
-      # --- 步骤 3：安装并配置阿里云CLI（官方Action）---
+      # --- 步骤 3：安装并升级阿里云CLI（关键修改）---
       - name: Install Aliyun CLI
         uses: aliyun/setup-aliyun-cli-action@v1
         with:
           version: 'latest'
+
+      # 关键：强制覆盖安装最新版CLI，确保支持 swas-open RunCommand
+      - name: Upgrade Aliyun CLI to latest
+        run: |
+          curl -fsSL https://aliyuncli.alicdn.com/install.sh | bash
+          echo "$HOME/.aliyun/bin" >> $GITHUB_PATH
 
       - name: Configure Aliyun CLI with RAM credentials
         run: |
