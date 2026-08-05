@@ -27,17 +27,11 @@ jobs:
           push: true
           tags: ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
 
-      # --- 步骤 3：安装并升级阿里云CLI（关键修改）---
+      # --- 步骤 3：安装并配置阿里云CLI ---
       - name: Install Aliyun CLI
         uses: aliyun/setup-aliyun-cli-action@v1
         with:
           version: 'latest'
-
-      # 关键：强制覆盖安装最新版CLI，确保支持 swas-open RunCommand
-      - name: Upgrade Aliyun CLI to latest
-        run: |
-          curl -fsSL https://aliyuncli.alicdn.com/install.sh | bash
-          echo "$HOME/.aliyun/bin" >> $GITHUB_PATH
 
       - name: Configure Aliyun CLI with RAM credentials
         run: |
@@ -46,7 +40,7 @@ jobs:
             --access-key-secret ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }} \
             --region cn-shanghai
 
-      # --- 步骤 4：通过云助手远程执行部署命令 ---
+      # --- 步骤 4：通过云助手远程执行部署命令（核心修正）---
       - name: Deploy on Simple Application Server via Cloud Assistant
         run: |
           DEPLOY_COMMAND="
@@ -57,7 +51,8 @@ jobs:
           docker run -d --name my-nextjs-app -p 3003:3003 -e NODE_ENV=production -e PORT=3003 -e HOSTNAME=0.0.0.0 --restart always ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
           "
 
-          aliyun swas-open RunCommand \
+          # 关键修正：通过 --product swas-open 显式指定产品为轻量应用服务器
+          aliyun --product swas-open RunCommand \
             --api-version 2020-06-01 \
             --RegionId "cn-shanghai" \
             --InstanceId "803b51fa73d34db8be7c60e05b03aec4" \
