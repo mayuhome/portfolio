@@ -27,28 +27,22 @@ jobs:
           push: true
           tags: ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
 
-      # --- 步骤 3：安装并配置阿里云CLI（修正版）---
-      - name: Install and Upgrade Aliyun CLI
-        run: |
-          # 使用官方安装脚本安装最新版CLI
-          curl -fsSL https://aliyuncli.alicdn.com/install.sh | bash
-          # 将aliyun命令添加到PATH，方便后续步骤使用
-          echo "$HOME/.aliyun/bin" >> $GITHUB_PATH
-          # 验证安装的版本
-          $HOME/.aliyun/bin/aliyun version
+      # --- 步骤 3：安装并配置阿里云CLI（官方Action）---
+      - name: Install Aliyun CLI
+        uses: aliyun/setup-aliyun-cli-action@v1
+        with:
+          version: 'latest'
 
       - name: Configure Aliyun CLI with RAM credentials
         run: |
-          # 使用完整路径确保能找到aliyun命令
-          $HOME/.aliyun/bin/aliyun configure set --profile default --mode AK \
+          aliyun configure set --profile default --mode AK \
             --access-key-id ${{ secrets.ALIYUN_ACCESS_KEY_ID }} \
             --access-key-secret ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }} \
             --region cn-shanghai
 
-      # --- 步骤 4：通过云助手远程执行部署命令（修改部分）---
+      # --- 步骤 4：通过云助手远程执行部署命令 ---
       - name: Deploy on Simple Application Server via Cloud Assistant
         run: |
-          # 构建要执行的Shell命令
           DEPLOY_COMMAND="
           docker login ${{ secrets.ALIYUN_REGISTRY }} -u ${{ secrets.ALIYUN_USERNAME }} -p ${{ secrets.ALIYUN_PASSWORD }} &&
           docker pull ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest &&
@@ -57,7 +51,6 @@ jobs:
           docker run -d --name my-nextjs-app -p 3003:3003 -e NODE_ENV=production -e PORT=3003 -e HOSTNAME=0.0.0.0 --restart always ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
           "
 
-          # 关键修改：明确指定API版本 2020-06-01
           aliyun swas-open RunCommand \
             --api-version 2020-06-01 \
             --RegionId "cn-shanghai" \
