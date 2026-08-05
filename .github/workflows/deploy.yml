@@ -25,12 +25,19 @@ jobs:
           push: true
           tags: ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
 
+      # ✅ 改用手动安装，避免 Node 兼容性问题和参数缺失
       - name: Install and configure Aliyun CLI
-        uses: jerray/setup-aliyun-cli-action@v1.0.0
-        with:
-          access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-          access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
-          region: cn-shanghai
+        run: |
+          wget -q http://aliyuncli.alicdn.com/aliyun-cli-linux-latest-amd64.tgz
+          tar xzvf aliyun-cli-linux-latest-amd64.tgz
+          cd aliyun-cli && sudo ./install
+          aliyun configure set \
+            --profile default \
+            --mode AK \
+            --region cn-shanghai \
+            --access-key-id ${{ secrets.ALIYUN_ACCESS_KEY_ID }} \
+            --access-key-secret ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+          aliyun --version
 
       - name: Deploy on Simple Application Server via Cloud Assistant
         run: |
@@ -50,4 +57,4 @@ jobs:
             --Name "deploy-nextjs-app" \
             --Timeout 600
 
-          echo "部署命令已通过轻量服务器命令助手发送成功！"
+          echo "✅ 部署命令已通过轻量服务器命令助手发送成功！"
