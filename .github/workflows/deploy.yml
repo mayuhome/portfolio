@@ -58,6 +58,7 @@ jobs:
             --InstanceId "803b51fa73d34db8be7c60e05b03aec4" \
             --Type RunShellScript \
             --CommandContent "$DEPLOY_COMMAND" \
+            --Name "deploy-nextjs-app" \
             --Timeout 600
 
           echo "部署命令已通过轻量服务器发送成功！"
