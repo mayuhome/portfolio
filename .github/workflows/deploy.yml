@@ -25,18 +25,25 @@ jobs:
           push: true
           tags: ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
 
-      # ✅ 改用手动安装，避免 Node 兼容性问题和参数缺失
       - name: Install and configure Aliyun CLI
         run: |
+          # 下载并解压
           wget -q http://aliyuncli.alicdn.com/aliyun-cli-linux-latest-amd64.tgz
-          tar xzvf aliyun-cli-linux-latest-amd64.tgz
-          cd aliyun-cli && sudo ./install
+          tar -xzf aliyun-cli-linux-latest-amd64.tgz
+
+          # 直接复制到系统路径（更可靠）
+          sudo cp aliyun /usr/local/bin/
+          sudo chmod +x /usr/local/bin/aliyun
+
+          # 配置认证
           aliyun configure set \
             --profile default \
             --mode AK \
             --region cn-shanghai \
             --access-key-id ${{ secrets.ALIYUN_ACCESS_KEY_ID }} \
             --access-key-secret ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+
+          # 验证安装
           aliyun --version
 
       - name: Deploy on Simple Application Server via Cloud Assistant
