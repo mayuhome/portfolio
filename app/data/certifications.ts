@@ -13,7 +13,7 @@ export const certifications: Certification[] = [
       'China Computer Federation (CCF) - National Professional Qualification',
     date: '2026',
     color: '#FF9900',
-    filePath: '/public/certifications/系统分析师.pdf',
+    filePath: '/public/certifications/系统分析师.png',
   },
   {
     title: 'Systems Architect (Level 2)',
@@ -21,7 +21,7 @@ export const certifications: Certification[] = [
       'China Computer Federation (CCF) - National Professional Qualification',
     date: '2023',
     color: '#0668E1',
-    filePath: '/public/certifications/软件设计师.pdf',
+    filePath: '/public/certifications/软件设计师.png',
   },
   {
     title: 'Deutsch B1.1',
@@ -42,6 +42,6 @@ export const certifications: Certification[] = [
     issuer: 'China Association for Accounting Professionals',
     date: '2020',
     color: '#9C27B0',
-    filePath: '/public/certifications/会计从业资格.pdf',
-  }
+    filePath: '/public/certifications/会计从业资格.png',
+  },
 ];
