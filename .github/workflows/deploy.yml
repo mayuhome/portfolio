@@ -11,6 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # --- 步骤 1：登录阿里云ACR ---
       - name: Login to Aliyun Container Registry
         uses: docker/login-action@v3
         with:
@@ -18,6 +19,7 @@ jobs:
           username: ${{ secrets.ALIYUN_USERNAME }}
           password: ${{ secrets.ALIYUN_PASSWORD }}
 
+      # --- 步骤 2：构建并推送镜像到ACR ---
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -25,27 +27,20 @@ jobs:
           push: true
           tags: ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
 
-      - name: Install and configure Aliyun CLI
+      # --- 步骤 3：安装并配置阿里云CLI ---
+      - name: Install Aliyun CLI
+        uses: aliyun/setup-aliyun-cli-action@v1
+        with:
+          version: 'latest'
+
+      - name: Configure Aliyun CLI with RAM credentials
         run: |
-          # 下载并解压
-          wget -q http://aliyuncli.alicdn.com/aliyun-cli-linux-latest-amd64.tgz
-          tar -xzf aliyun-cli-linux-latest-amd64.tgz
-
-          # 直接复制到系统路径（更可靠）
-          sudo cp aliyun /usr/local/bin/
-          sudo chmod +x /usr/local/bin/aliyun
-
-          # 配置认证
-          aliyun configure set \
-            --profile default \
-            --mode AK \
-            --region cn-shanghai \
+          aliyun configure set --profile default --mode AK \
             --access-key-id ${{ secrets.ALIYUN_ACCESS_KEY_ID }} \
-            --access-key-secret ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+            --access-key-secret ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }} \
+            --region cn-shanghai
 
-          # 验证安装
-          aliyun --version
-
+      # --- 步骤 4：通过云助手远程执行部署命令（修正命令名）---
       - name: Deploy on Simple Application Server via Cloud Assistant
         run: |
           DEPLOY_COMMAND="
@@ -53,15 +48,16 @@ jobs:
           docker pull ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest &&
           docker stop my-nextjs-app || true &&
           docker rm my-nextjs-app || true &&
-          docker run -d --name my-nextjs-app -p 3000:3000 -e NODE_ENV=production -e PORT=3000 -e HOSTNAME=0.0.0.0 --restart always ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
+          docker run -d --name my-nextjs-app -p 3003:3003 -e NODE_ENV=production -e PORT=3003 -e HOSTNAME=0.0.0.0 --restart always ${{ secrets.ALIYUN_REGISTRY }}/jade-demo/resume:latest
           "
 
-          aliyun --product swas-open --version 2020-06-01 RunCommand \
-            --RegionId "cn-shanghai" \
-            --InstanceId "${{ secrets.ALIYUN_INSTANCE_ID }}" \
-            --Type "RunShellScript" \
-            --CommandContent "$DEPLOY_COMMAND" \
-            --Name "deploy-nextjs-app" \
-            --Timeout 600
+          # 关键修正点：使用官方文档中的正确命令名 run-command
+          aliyun swas-open run-command \
+            --region "cn-shanghai" \
+            --instance-id "803b51fa73d34db8be7c60e05b03aec4" \
+            --type "RunShellScript" \
+            --command-content "$DEPLOY_COMMAND" \
+            --name "deploy-nextjs-app" \
+            --timeout 600
 
-          echo "✅ 部署命令已通过轻量服务器命令助手发送成功！"
+          echo "部署命令已通过轻量服务器命令助手发送成功！"
