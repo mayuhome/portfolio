@@ -60,7 +60,7 @@ jobs:
 
           # 现在插件已安装，可以正确识别 swas-open 产品
           aliyun swas-open run-command \
-            --region "cn-shanghai" \
+            --biz-region-id "cn-shanghai" \
             --instance-id "803b51fa73d34db8be7c60e05b03aec4" \
             --type "RunShellScript" \
             --command-content "$DEPLOY_COMMAND" \
